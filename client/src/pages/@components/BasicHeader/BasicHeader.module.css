@@ -107,12 +107,12 @@
 
   .userBtn::before,
   .loginBtn::before {
-    top: 8px;
+    top: 6px;
   }
 
   .userBtn::after,
   .loginBtn::after {
-    bottom: 8px;
+    bottom: 6px;
   }
 
   .userBtn span,
