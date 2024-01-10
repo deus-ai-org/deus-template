@@ -45,6 +45,9 @@
   font-weight: bold;
   color: #555;
 }
+.loginText {
+  color: white;
+}
 
 .loginBtn {
   display: flex;
