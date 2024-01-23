@@ -1,6 +1,7 @@
 export type UserEntity = {
   id: string;
   name: string;
+  photoURL: string | undefined;
 };
 
 export type TaskEntity = {
@@ -9,5 +10,5 @@ export type TaskEntity = {
   done: boolean;
   createdTime: number;
   image: { url: string; s3Key: string } | undefined;
-  author: { userId: string; name: string };
+  author: UserEntity;
 };

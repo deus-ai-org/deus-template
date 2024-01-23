@@ -34,6 +34,12 @@
   padding: 16px 16px 8px;
 }
 
+.author {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .authorName {
   display: flex;
   gap: 8px;

@@ -1,5 +1,6 @@
 import type { TaskEntity } from 'api/@types';
 import { userAtom } from 'atoms/user';
+import { UserIcon } from 'components/UserIcon';
 import { ElapsedTime } from 'features/ElapsedTime/ElapsedTime';
 import { PrivateTask } from 'features/PrivateTask/PrivateTask';
 import { useAtom } from 'jotai';
@@ -16,7 +17,7 @@ const Home = () => {
   const [label, setLabel] = useState<string>('');
   const [image, setImage] = useState<File>();
   const [previewImageUrl, setPreviewImageUrl] = useState<string>('');
-  const isPrivateTask = (task: TaskEntity) => user?.id === task.author.userId;
+  const isPrivateTask = (task: TaskEntity) => user?.id === task.author.id;
 
   const inputLabel = (e: ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
@@ -83,7 +84,10 @@ const Home = () => {
         {tasks?.map((task) => (
           <div key={task.id}>
             <li className={styles.taskHeader}>
-              <div className={styles.authorName}>{task.author.name}</div>
+              <div className={styles.author}>
+                <UserIcon size={24} photoURL={task.author.photoURL} />
+                <div className={styles.authorName}>{task.author.name}</div>
+              </div>
               <ElapsedTime createdTime={task.createdTime} />
             </li>
             <li className={styles.label}>
