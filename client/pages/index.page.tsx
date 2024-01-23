@@ -1,12 +1,12 @@
+import type { TaskModel } from 'api/@types';
+import { userAtom } from 'atoms/user';
+import { ElapsedTime } from 'features/ElapsedTime/ElapsedTime';
+import { PrivateTask } from 'features/PrivateTask/PrivateTask';
 import { useAtom } from 'jotai';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { TaskModel } from '../api/@types';
-import { userAtom } from '../atoms/user';
-import { ElapsedTime } from '../features/ElapsedTime/ElapsedTime';
-import { PrivateTask } from '../features/PrivateTask/PrivateTask';
-import { apiClient } from '../utils/apiClient';
-import { returnNull } from '../utils/returnNull';
+import { apiClient } from 'utils/apiClient';
+import { returnNull } from 'utils/returnNull';
 import styles from './index.module.css';
 
 const Home = () => {
