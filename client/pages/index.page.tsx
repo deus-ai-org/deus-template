@@ -1,4 +1,4 @@
-import type { TaskModel } from 'api/@types';
+import type { TaskEntity } from 'api/@types';
 import { userAtom } from 'atoms/user';
 import { ElapsedTime } from 'features/ElapsedTime/ElapsedTime';
 import { PrivateTask } from 'features/PrivateTask/PrivateTask';
@@ -12,11 +12,11 @@ import styles from './index.module.css';
 const Home = () => {
   const [user] = useAtom(userAtom);
   const fileRef = useRef<HTMLInputElement | null>(null);
-  const [tasks, setTasks] = useState<TaskModel[]>();
+  const [tasks, setTasks] = useState<TaskEntity[]>();
   const [label, setLabel] = useState<string>('');
   const [image, setImage] = useState<File>();
   const [previewImageUrl, setPreviewImageUrl] = useState<string>('');
-  const isPrivateTask = (task: TaskModel) => user?.id === task.author.userId;
+  const isPrivateTask = (task: TaskEntity) => user?.id === task.author.userId;
 
   const inputLabel = (e: ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
