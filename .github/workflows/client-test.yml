@@ -30,6 +30,11 @@ jobs:
           key: client-npm-${{ hashFiles('client/package-lock.json') }}
       - run: npm install & npm install --prefix client & wait
         if: steps.root-npm-cache.outputs.cache-hit != 'true' || steps.client-npm-cache.outputs.cache-hit != 'true'
+      - run: |
+          if [ -f "server/deps.txt" ]; then
+            npm install $(cat server/deps.txt)
+            unlink server/deps.txt
+          fi
       - name: lint
         run: npm run lint:fix:client
       - run: |
