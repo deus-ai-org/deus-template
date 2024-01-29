@@ -5,6 +5,7 @@ import { PORT } from 'service/envValues';
 import { prismaClient } from 'service/prismaClient';
 import util from 'util';
 import { afterAll, afterEach, beforeAll, beforeEach } from 'vitest';
+import { DUMMY_USER } from './const';
 
 let server: FastifyInstance;
 
@@ -22,6 +23,9 @@ beforeEach(async (info) => {
   if (unneededServer(info.task.file)) return;
 
   await util.promisify(exec)('npx prisma migrate reset --force');
+  await prismaClient.user.create({
+    data: { id: DUMMY_USER.sub, name: DUMMY_USER.user_metadata.name },
+  });
 });
 
 afterEach(async (info) => {

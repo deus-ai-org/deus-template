@@ -27,9 +27,11 @@ services:
     command: |
       sh -c "
         set -euxo pipefail
-        mc alias set myminio http://minio:9100 $$MINIO_ROOT_USER $$MINIO_ROOT_PASSWORD
+        mc alias set myminio http://minio:9000 $$MINIO_ROOT_USER $$MINIO_ROOT_PASSWORD
         mc mb myminio/$$S3_BUCKET --region=$$S3_REGION || true
         mc anonymous set download myminio/$$S3_BUCKET
+        mc mb myminio/$$TEST_S3_BUCKET --region=$$S3_REGION || true
+        mc anonymous set download myminio/$$TEST_S3_BUCKET
       "
 
   postgres:

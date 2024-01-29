@@ -17,7 +17,6 @@ export type Methods = DefineMethods<{
       done: boolean;
       label: string;
     };
-    status: 204;
     resBody: TaskEntity;
   };
 

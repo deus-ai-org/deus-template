@@ -9,7 +9,7 @@ export default defineController(() => ({
   patch: async ({ user, body }) => {
     const task = await taskUseCase.update(user, body.taskId, body.done, body.label);
 
-    return { status: 204, body: task };
+    return { status: 200, body: task };
   },
   delete: async ({ user, body }) => {
     await taskUseCase.delete(user, body.taskId);

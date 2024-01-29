@@ -2,13 +2,11 @@ import type { UserEntity } from 'api/@types';
 import assert from 'assert';
 import type { JWT_PROP_NAME } from 'service/constants';
 import { prismaClient } from 'service/prismaClient';
+import type { JwtUser } from 'service/types';
 import { defineHooks } from './$relay';
 
 export type AdditionalRequest = {
-  [Key in typeof JWT_PROP_NAME]: {
-    sub: string;
-    user_metadata: { name: string; avatar_url?: string };
-  };
+  [Key in typeof JWT_PROP_NAME]: JwtUser;
 } & { user: UserEntity };
 
 export default defineHooks(() => ({
