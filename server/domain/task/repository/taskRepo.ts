@@ -1,5 +1,5 @@
 import type { Task, User } from '@prisma/client';
-import type { TaskEntity } from 'api/@types';
+import type { TaskEntity, UserEntity } from 'api/@types';
 import type { DeletableTaskId } from 'domain/task/model/taskMethod';
 import { S3_PREFIX } from 'service/constants';
 import { prismaClient } from 'service/prismaClient';
@@ -38,8 +38,12 @@ export const taskRepo = {
     prismaClient.task
       .findMany({ take: limit, include: { User: true }, orderBy: { createdAt: 'desc' } })
       .then((tasks) => tasks.map(toModel)),
-  findByIdOrThrow: (taskId: string): Promise<TaskEntity> =>
+  findById: (taskId: string): Promise<TaskEntity | null> =>
     prismaClient.task
-      .findUniqueOrThrow({ where: { id: taskId }, include: { User: true } })
-      .then(toModel),
+      .findUnique({ where: { id: taskId }, include: { User: true } })
+      .then((task) => (task === null ? null : toModel(task))),
+  findUsersTaskById: (user: UserEntity, taskId: string): Promise<TaskEntity | null> =>
+    prismaClient.task
+      .findUnique({ where: { id: taskId, userId: user.id }, include: { User: true } })
+      .then((task) => (task === null ? null : toModel(task))),
 };

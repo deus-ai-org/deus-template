@@ -15,17 +15,19 @@ export const PrivateTask = (props: { task: TaskEntity; fetchTasks: () => Promise
   };
   const toggleDone = async () => {
     await apiClient.private.tasks
-      .patch({ body: { taskId: task.id, done: !task.done, label: task.label } })
+      ._taskId(task.id)
+      .patch({ body: { done: !task.done, label: task.label } })
       .catch(returnNull);
     await props.fetchTasks();
   };
   const deleteTask = async () => {
-    await apiClient.private.tasks.delete({ body: { taskId: task.id } }).catch(returnNull);
+    await apiClient.private.tasks._taskId(task.id).delete().catch(returnNull);
     await props.fetchTasks();
   };
   const updateTaskLabel = async () => {
     await apiClient.private.tasks
-      .patch({ body: { taskId: task.id, done: task.done, label: editingLabel } })
+      ._taskId(task.id)
+      .patch({ body: { done: task.done, label: editingLabel } })
       .catch(returnNull);
     setEditingTaskId(undefined);
     setEditingLabel('');

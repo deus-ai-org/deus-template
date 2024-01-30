@@ -20,19 +20,24 @@ export const taskUseCase = {
 
     return task;
   },
-  delete: async (user: UserEntity, taskId: string): Promise<void> => {
-    const task = await taskRepo.findByIdOrThrow(taskId);
+  delete: async (user: UserEntity, taskId: string): Promise<boolean> => {
+    const task = await taskRepo.findById(taskId);
+    if (task === null) return false;
+
     const deletableTaskId = taskMethod.deleteOrThrow(user, task);
 
     await taskRepo.delete(deletableTaskId);
+    return true;
   },
   update: async (
     user: UserEntity,
     taskId: string,
     done: boolean,
     label: string
-  ): Promise<TaskEntity> => {
-    const task = await taskRepo.findByIdOrThrow(taskId);
+  ): Promise<TaskEntity | null> => {
+    const task = await taskRepo.findById(taskId);
+    if (task === null) return null;
+
     const newTask = taskMethod.updateOrThrow(user, task, { done, label });
 
     await taskRepo.save(newTask);

@@ -2,12 +2,19 @@ import type { TaskEntity } from 'api/@types';
 import type { DefineMethods } from 'aspida';
 
 export type Methods = DefineMethods<{
-  post: {
-    reqFormat: FormData;
+  get: {
+    resBody: TaskEntity;
+  };
+
+  patch: {
     reqBody: {
+      done: boolean;
       label: string;
-      image?: Blob;
     };
     resBody: TaskEntity;
+  };
+
+  delete: {
+    status: 204;
   };
 }>;
