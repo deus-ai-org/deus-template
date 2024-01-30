@@ -1,4 +1,4 @@
-import { DUMMY_USER } from 'tests/const';
+import { SELF_USER } from 'tests/const';
 import { expect, test } from 'vitest';
 import { apiClient } from './apiClient';
 
@@ -14,6 +14,6 @@ test('認証エンドポイント確認', async () => {
   expect(res.status).toEqual(200);
 
   const user = await apiClient.me.$post({ config: { headers: { 'Content-Type': 'text/plain' } } });
-  expect(user.id).toEqual(DUMMY_USER.sub);
-  expect(user.name).toEqual(DUMMY_USER.user_metadata.name);
+  expect(user.id).toEqual(SELF_USER.sub);
+  expect(user.name).toEqual(SELF_USER.user_metadata.name);
 });

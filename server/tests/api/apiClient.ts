@@ -3,9 +3,9 @@ import api from 'api/$api';
 import { createSigner } from 'fast-jwt';
 import { COOKIE_NAME } from 'service/constants';
 import { API_BASE_PATH, PORT, SUPABASE_JWT_SECRET } from 'service/envValues';
-import { DUMMY_USER } from 'tests/const';
+import { SELF_USER } from 'tests/const';
 
-const jwt = createSigner({ key: SUPABASE_JWT_SECRET })(DUMMY_USER);
+const jwt = createSigner({ key: SUPABASE_JWT_SECRET })(SELF_USER);
 
 export const apiClient = api(
   aspida(undefined, {
