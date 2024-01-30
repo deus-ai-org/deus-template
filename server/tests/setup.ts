@@ -4,7 +4,7 @@ import { init } from 'service/app';
 import { PORT } from 'service/envValues';
 import { prismaClient } from 'service/prismaClient';
 import util from 'util';
-import { afterAll, afterEach, beforeAll, beforeEach } from 'vitest';
+import { afterAll, beforeAll } from 'vitest';
 import { OTHER_USER, SELF_USER } from './const';
 
 let server: FastifyInstance;
@@ -15,27 +15,15 @@ const unneededServer = (file: { filepath?: string } | undefined): boolean =>
 beforeAll(async (info) => {
   if (unneededServer(info)) return;
 
-  server = init();
-  await server.listen({ port: PORT, host: '0.0.0.0' });
-});
-
-beforeEach(async (info) => {
-  if (unneededServer(info.task.file)) return;
-
   await util.promisify(exec)('npx prisma migrate reset --force');
   await Promise.all(
     [SELF_USER, OTHER_USER].map((user) =>
-      prismaClient.user.create({
-        data: { id: user.sub, name: user.user_metadata.name },
-      })
+      prismaClient.user.create({ data: { id: user.sub, name: user.user_metadata.name } })
     )
   );
-});
 
-afterEach(async (info) => {
-  if (unneededServer(info.task.file)) return;
-
-  await prismaClient.$disconnect();
+  server = init();
+  await server.listen({ port: PORT, host: '0.0.0.0' });
 });
 
 afterAll(async (info) => {
