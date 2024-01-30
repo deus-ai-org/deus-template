@@ -43,6 +43,6 @@ jobs:
             git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD
           fi
       - name: generate
-        run: npm run generate:aspida --prefix server
+        run: npm run generate:server
       - name: typecheck
         run: npm run typecheck:server
