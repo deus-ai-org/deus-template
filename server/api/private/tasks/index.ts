@@ -1,7 +1,6 @@
 import type { TaskEntity } from 'api/@types';
-import type { DefineMethods } from 'aspida';
 
-export type Methods = DefineMethods<{
+export type Methods = {
   post: {
     reqFormat: FormData;
     reqBody: {
@@ -10,4 +9,4 @@ export type Methods = DefineMethods<{
     };
     resBody: TaskEntity;
   };
-}>;
+};

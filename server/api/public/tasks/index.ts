@@ -1,11 +1,10 @@
 import type { TaskEntity } from 'api/@types';
-import type { DefineMethods } from 'aspida';
 
-export type Methods = DefineMethods<{
+export type Methods = {
   get: {
     query?: {
       limit?: number;
     };
     resBody: TaskEntity[];
   };
-}>;
+};
